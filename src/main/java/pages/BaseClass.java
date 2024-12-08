@@ -10,9 +10,15 @@ import utilities.ReadExcelFile;
 import utilities.ConfigManager;
 
 public class BaseClass {
+    protected String FileName = System.getProperty("user.dir") + "\\TestData\\ETestData.xlsx";
     public WebDriver driver;
     public ConfigManager conf = new ConfigManager();
-    protected ReadExcelFile excel;
+    public ReadExcelFile excel;
+    public ReadExcelFile rf = new ReadExcelFile();
+    protected LoginPage lp;
+
+    protected String User = ReadExcelFile.getCellValue(FileName,"Login",1,0);
+    protected String Password = ReadExcelFile.getCellValue(FileName,"Login",1,1);
 
     @BeforeClass
     public void setup() {
