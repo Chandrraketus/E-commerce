@@ -1,5 +1,8 @@
 package pages;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +11,9 @@ import utilities.BrowserFactory;
 import utilities.ConfigManager;
 import utilities.ReadExcelFile;
 import utilities.ConfigManager;
+
+import java.io.File;
+import java.io.IOException;
 
 public class BaseClass {
     protected String FileName = System.getProperty("user.dir") + "\\TestData\\ETestData.xlsx";
@@ -27,6 +33,16 @@ public class BaseClass {
         String url = conf.getUrl();
         System.out.println("Starting tests on browser: " + browser + " and URL: " + url);
         driver = BrowserFactory.startApplication(driver, browser, url);
+    }
+
+    public void capturesreenshot(WebDriver driver,String testName) throws IOException {
+        TakesScreenshot screenshot = ((TakesScreenshot) driver);
+        File src = screenshot.getScreenshotAs(OutputType.FILE);
+        File srcPath = new File("." +"//Screenshots//" + testName +".png");
+        System.out.println("This is screenshot section");
+
+        FileUtils.copyFile(src, srcPath);
+
     }
 
 //    @AfterClass

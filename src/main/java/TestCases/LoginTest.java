@@ -7,12 +7,14 @@ import pages.BaseClass;
 import pages.LoginPage;
 import utilities.ReadExcelFile;
 
+import java.io.IOException;
+
 public class LoginTest extends BaseClass {
     String FileName = System.getProperty("user.dir") + "\\TestData\\ETestData.xlsx";
 
     @Test(dataProvider = "loginDataProvider")
 
-    public void verify(String User, String Password) throws InterruptedException {
+    public void verify(String User, String Password) throws InterruptedException, IOException {
         LoginPage lp = new LoginPage(driver);
         lp.portalLogin(User, Password);
         Thread.sleep(2000);
@@ -26,7 +28,9 @@ public class LoginTest extends BaseClass {
 
         else
         {
+            capturesreenshot(driver,"Verify");
             Assert.assertTrue(false);
+
         }
 
 
